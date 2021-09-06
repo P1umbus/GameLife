@@ -17,7 +17,8 @@ Shader "CustomRenderTextureEffect/LifePhysicsShader"
             #pragma fragment frag
             #pragma target 3.0
 
-            float4 _DrawPosition;
+            float3 _DrawPosition;
+            float _DrawSize;
             
             float4 get(v2f_customrendertexture IN, int x, int y) : COLOR
             {
@@ -28,7 +29,7 @@ Shader "CustomRenderTextureEffect/LifePhysicsShader"
             {
                 float self = get(IN, 0, 0).a;                
 
-                if (distance(_DrawPosition, IN.localTexcoord.xy) < 0.01)
+                if (distance(_DrawPosition, IN.localTexcoord.xy) < _DrawSize)
                     return float4(1, 1, 1, 1);
 
                 int neighbours = int(
